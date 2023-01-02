@@ -18,7 +18,7 @@ func debug(v ...any) {
 var unknownCodonError error = errors.New("Unknown codon")
 var noProteinError error = errors.New("No protein found")
 
-// Returns all amino acid string in given RNA sequence
+// Returns all amino acid strings in given RNA/DNA sequence
 func GetAminoAcids(rna string) ([]string, error) {
 	var out []string
 	var protein string
@@ -60,7 +60,7 @@ func GetAminoAcids(rna string) ([]string, error) {
 	return out, nil
 }
 
-// Converts DNA string to RNA string
+// Converts DNA string to RNA string and cleans up the string
 func DNA2RNA(dna string) string {
 	dna = strings.Replace(dna, " ", "", -1)
 	dna = strings.Replace(dna, "\n", "", -1)
