@@ -2,5 +2,5 @@
 
 ## Struktura aplikacji
 
-* `frontend/` - (prezentacja danych)
-* `backend/` - (przetwarzanie danych)
+* `frontend/` - prezentacja danych
+* `backend/` - przetwarzanie danych
