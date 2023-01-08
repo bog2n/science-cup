@@ -17,3 +17,4 @@
 
 - <https://pepdraw.io>
 - <https://en.wikipedia.org/wiki/Amino_acid#/media/File:ProteinogenicAminoAcids.svg>
+- <https://www.rapidnovor.com/mass-calculator/>
