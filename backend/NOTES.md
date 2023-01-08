@@ -2,7 +2,7 @@
 
 ## Roadmap
 
-- add embedded json file with all aminoacids
+- ~~add embedded json file with all aminoacids~~
 - move codons from ribosome module to aminoacids module
 - create functions for calculating properties of proteins
 - add images in svg format

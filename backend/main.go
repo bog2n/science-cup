@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"motorola/aminoacids"
 	"motorola/ribosome"
 )
 
@@ -19,4 +20,5 @@ func main() {
 			fmt.Println(prot[i])
 		}
 	}
+	fmt.Println(aminoacids.AminoAcids["L"].Mass)
 }
