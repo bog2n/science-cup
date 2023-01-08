@@ -1,6 +1,7 @@
 package aminoacids
 
 import (
+	"math"
 	"os"
 	"reflect"
 	"testing"
@@ -26,5 +27,21 @@ func TestLoadData(t *testing.T) {
 	got := LoadData(&data)
 	if !reflect.DeepEqual(want, got) {
 		t.Error("Want: ", want, "\nGot: ", got)
+	}
+}
+
+func TestCalculateMass(t *testing.T) {
+	tests := map[string]float64{
+		"GFPCM":                553.2022,
+		"EHDGYIFVS":            1065.4752,
+		"HFYNRQEKTFH":          1505.7144,
+		"AQLSTKERNGMWYFHDCIPV": 2394.1214, // all of them
+	}
+	for val, want := range tests {
+		got := CalculateMass(val)
+		diff := math.Abs(got - want)
+		if diff > 0.1 {
+			t.Errorf("For data: %q, got %f want %f | diff = %f", val, got, want, diff)
+		}
 	}
 }
