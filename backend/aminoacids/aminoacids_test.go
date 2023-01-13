@@ -45,3 +45,18 @@ func TestCalculateMass(t *testing.T) {
 		}
 	}
 }
+
+func TestCalculateHydroIndex(t *testing.T) {
+	tests := map[string]float64{
+		"EGNDH":                19.50,
+		"DHFYSA":               12.41,
+		"CIPVYWTSLQARNDHFMKEG": 18.20,
+	}
+	for val, want := range tests {
+		got := CalculateHydroIndex(val)
+		diff := math.Abs(got - want)
+		if diff > 0.1 {
+			t.Errorf("For data: %q, got %f want %f | diff = %f", val, got, want, diff)
+		}
+	}
+}
