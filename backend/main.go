@@ -18,7 +18,7 @@ func main() {
 		}
 		for i := range prot {
 			fmt.Println(prot[i])
+			fmt.Printf("Mass: %f, Hydrophobicity: %f\n", aminoacids.CalculateMass(prot[i]), aminoacids.CalculateHydroIndex(prot[i]))
 		}
 	}
-	fmt.Println(aminoacids.AminoAcids["L"].Mass)
 }
