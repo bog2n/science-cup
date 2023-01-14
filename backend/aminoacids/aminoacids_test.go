@@ -16,12 +16,14 @@ func TestLoadData(t *testing.T) {
 	// Define wanted data
 	want := make(map[string]AminoAcid)
 	want["U"] = AminoAcid{
-		Image: `<path d="m 100 100 v 500 z">`,
-		Mass:  22.0,
+		Image:     `<path d="m 100 100 v 500 z">`,
+		Mass:      22.0,
+		HydroPhob: 2.22,
 	}
 	want["A"] = AminoAcid{
-		Image: `aaaa`,
-		Mass:  21.3,
+		Image:     `aaaa`,
+		Mass:      21.3,
+		HydroPhob: 1.11,
 	}
 
 	got := LoadData(&data)
