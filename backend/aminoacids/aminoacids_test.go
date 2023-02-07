@@ -62,3 +62,32 @@ func TestCalculateHydroIndex(t *testing.T) {
 		}
 	}
 }
+
+func TestCalculatePI(t *testing.T) {
+	tests := map[string]float64{
+		"ASDF":                 3.77,
+		"CIPVYWTSLQARNDHFMKEG": 6.96,
+	}
+	for val, want := range tests {
+		got := CalculatePI(val)
+		diff := math.Abs(got - want)
+		if diff > 0.1 {
+			t.Errorf("For data: %q, got %f want %f | diff = %f", val, got, want, diff)
+		}
+	}
+}
+
+func TestCalculatePH(t *testing.T) {
+	tests := map[string]float64{
+		"ASDF":                 2.06,
+		"CIPVYWTSLQARNDHFMKEG": 2.55,
+		"AQLSTKERNGMWYFHDCIPV": 2.54,
+	}
+	for val, want := range tests {
+		got := CalculatePH(val)
+		diff := math.Abs(got - want)
+		if diff > 0.1 {
+			t.Errorf("For data: %q, got %f want %f | diff = %f", val, got, want, diff)
+		}
+	}
+}
