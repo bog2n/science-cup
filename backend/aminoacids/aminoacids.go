@@ -57,6 +57,7 @@ func CalculateHydroIndex(protein string) float64 {
 	return out
 }
 
+// Calculates Isoelectric Point for given protein
 func CalculatePI(protein string) float64 {
 	count := make(map[string]float64)
 	// Update counts of proteins
@@ -84,6 +85,7 @@ func CalculatePI(protein string) float64 {
 	return ph
 }
 
+// Calculates PH Index for given protein
 func CalculatePH(protein string) float64 {
 	// Isoelectric point
 	pi := CalculatePI(protein)
