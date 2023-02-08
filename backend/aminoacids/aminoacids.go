@@ -66,18 +66,18 @@ func CalculatePI(protein string) float64 {
 	}
 	var ph float64 = 0
 	for ph = 0; ph <= 14; ph += 0.05 {
-		var q = 0.0
+		var q float64 = 0
 		// Acidic
-		q -= 1.0 / (1.0 + math.Pow(10.0, (3.65-ph)))        // COOH
-		q -= count["C"] / (1.0 + math.Pow(10.0, (8.18-ph))) // C
-		q -= count["D"] / (1.0 + math.Pow(10.0, (3.9-ph)))  // D
-		q -= count["E"] / (1.0 + math.Pow(10.0, (4.07-ph))) // E
-		q -= count["H"] / (1.0 + math.Pow(10.0, (6.04-ph))) // H
+		q -= 1 / (1 + math.Pow(10.0, (3.65-ph)))          // COOH
+		q -= count["C"] / (1 + math.Pow(10.0, (8.18-ph))) // C
+		q -= count["D"] / (1 + math.Pow(10.0, (3.9-ph)))  // D
+		q -= count["E"] / (1 + math.Pow(10.0, (4.07-ph))) // E
+		q -= count["H"] / (1 + math.Pow(10.0, (6.04-ph))) // H
 		// Based
-		q += 1.0 / (1.0 + math.Pow(10.0, (ph-8.2)))          // NH2
-		q += count["K"] / (1.0 + math.Pow(10.0, (ph-10.54))) // K
-		q += count["R"] / (1.0 + math.Pow(10.0, (ph-12.48))) // R
-		q += count["Y"] / (1.0 + math.Pow(10.0, (ph-10.46))) // Y
+		q += 1 / (1 + math.Pow(10.0, (ph-8.2)))            // NH2
+		q += count["K"] / (1 + math.Pow(10.0, (ph-10.54))) // K
+		q += count["R"] / (1 + math.Pow(10.0, (ph-12.48))) // R
+		q += count["Y"] / (1 + math.Pow(10.0, (ph-10.46))) // Y
 		if q <= 0 {
 			break
 		}
@@ -93,6 +93,30 @@ func CalculatePH(protein string) float64 {
 	m := CalculateMass(protein)
 
 	return -math.Log10(pi / m)
+}
+
+// Calculates polarity of protein
+func CalculatePolarity(protein string) float64 {
+	count := make(map[string]float64)
+	// Update counts of proteins
+	for _, v := range protein {
+		count[string(v)]++
+	}
+	var ph float64 = 7
+	var q float64 = 0
+	// Acidic
+	q -= 1 / (1 + math.Pow(10.0, (3.65-ph)))        // COOH
+	q -= count["C"] / (1 + math.Pow(10, (8.18-ph))) // C
+	q -= count["D"] / (1 + math.Pow(10, (3.9-ph)))  // D
+	q -= count["E"] / (1 + math.Pow(10, (4.07-ph))) // E
+	q -= count["H"] / (1 + math.Pow(10, (6.04-ph))) // H
+	// Based
+	q += 1 / (1 + math.Pow(10, (ph-8.2)))            // NH2
+	q += count["K"] / (1 + math.Pow(10, (ph-10.54))) // K
+	q += count["R"] / (1 + math.Pow(10, (ph-12.48))) // R
+	q += count["Y"] / (1 + math.Pow(10, (ph-10.46))) // Y
+
+	return math.Round(q)
 }
 
 func init() {

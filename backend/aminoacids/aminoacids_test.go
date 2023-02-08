@@ -91,3 +91,17 @@ func TestCalculatePH(t *testing.T) {
 		}
 	}
 }
+
+func TestCalculatePolarity(t *testing.T) {
+	tests := map[string]float64{
+		"ASDF":                 -1,
+		"CIPVYWTSLQARNDHFMKEG": 0,
+		"RKA":                  2,
+	}
+	for val, want := range tests {
+		got := CalculatePolarity(val)
+		if want != got {
+			t.Errorf("Got %f want %f", got, want)
+		}
+	}
+}
