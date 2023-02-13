@@ -102,7 +102,7 @@ func CalculatePolarity(protein string) float64 {
 	for _, v := range protein {
 		count[string(v)]++
 	}
-	var ph float64 = 7
+	var ph float64 = 7.4 // Neutral pH
 	var q float64 = 0
 	// Acidic
 	q -= 1 / (1 + math.Pow(10.0, (3.65-ph)))        // COOH
