@@ -37,7 +37,7 @@ func TestCalculateMass(t *testing.T) {
 		"GFPCM":                553.2022,
 		"EHDGYIFVS":            1065.4752,
 		"HFYNRQEKTFH":          1505.7144,
-		"AQLSTKERNGMWYFHDCIPV": 2394.1214, // all of them
+		"AQLSTKERNGMWYFHDCIPV": 2394.1214,
 	}
 	for val, want := range tests {
 		got := CalculateMass(val)

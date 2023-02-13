@@ -25,7 +25,6 @@ type AminoAcid struct {
 	Image     string  `json:"image"`
 	Mass      float64 `json:"mass"`
 	HydroPhob float64 `json:"hydrophob"`
-	Pi        float64 `json:"PI"`
 }
 
 // Populates aminoacids map with json data from
