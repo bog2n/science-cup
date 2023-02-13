@@ -66,18 +66,8 @@ func CalculatePI(protein string) float64 {
 	}
 	var ph float64 = 0
 	for ph = 0; ph <= 14; ph += 0.05 {
-		var q float64 = 0
-		// Acidic
-		q -= 1 / (1 + math.Pow(10.0, (3.65-ph)))          // COOH
-		q -= count["C"] / (1 + math.Pow(10.0, (8.18-ph))) // C
-		q -= count["D"] / (1 + math.Pow(10.0, (3.9-ph)))  // D
-		q -= count["E"] / (1 + math.Pow(10.0, (4.07-ph))) // E
-		q -= count["H"] / (1 + math.Pow(10.0, (6.04-ph))) // H
-		// Based
-		q += 1 / (1 + math.Pow(10.0, (ph-8.2)))            // NH2
-		q += count["K"] / (1 + math.Pow(10.0, (ph-10.54))) // K
-		q += count["R"] / (1 + math.Pow(10.0, (ph-12.48))) // R
-		q += count["Y"] / (1 + math.Pow(10.0, (ph-10.46))) // Y
+		q := calculateCharge(count, ph)
+
 		if q <= 0 {
 			break
 		}
@@ -103,20 +93,26 @@ func CalculatePolarity(protein string) float64 {
 		count[string(v)]++
 	}
 	var ph float64 = 7.4 // Neutral pH
-	var q float64 = 0
-	// Acidic
-	q -= 1 / (1 + math.Pow(10.0, (3.65-ph)))        // COOH
-	q -= count["C"] / (1 + math.Pow(10, (8.18-ph))) // C
-	q -= count["D"] / (1 + math.Pow(10, (3.9-ph)))  // D
-	q -= count["E"] / (1 + math.Pow(10, (4.07-ph))) // E
-	q -= count["H"] / (1 + math.Pow(10, (6.04-ph))) // H
-	// Based
-	q += 1 / (1 + math.Pow(10, (ph-8.2)))            // NH2
-	q += count["K"] / (1 + math.Pow(10, (ph-10.54))) // K
-	q += count["R"] / (1 + math.Pow(10, (ph-12.48))) // R
-	q += count["Y"] / (1 + math.Pow(10, (ph-10.46))) // Y
 
-	return math.Round(q)
+	return math.Round(calculateCharge(count, ph))
+}
+
+func calculateCharge(counts map[string]float64, ph float64) float64 {
+	var q float64 = 0
+
+	// Acidic
+	q -= 1 / (1 + math.Pow(10.0, (3.65-ph)))         // COOH
+	q -= counts["C"] / (1 + math.Pow(10, (8.18-ph))) // C
+	q -= counts["D"] / (1 + math.Pow(10, (3.9-ph)))  // D
+	q -= counts["E"] / (1 + math.Pow(10, (4.07-ph))) // E
+	q -= counts["H"] / (1 + math.Pow(10, (6.04-ph))) // H
+	// Based
+	q += 1 / (1 + math.Pow(10, (ph-8.2)))             // NH2
+	q += counts["K"] / (1 + math.Pow(10, (ph-10.54))) // K
+	q += counts["R"] / (1 + math.Pow(10, (ph-12.48))) // R
+	q += counts["Y"] / (1 + math.Pow(10, (ph-10.46))) // Y
+
+	return q
 }
 
 func init() {
