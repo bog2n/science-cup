@@ -105,3 +105,9 @@ func TestCalculatePolarity(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkCalculatePI(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CalculatePI("AQLSTKERNGMWYFHDCIPV")
+	}
+}
