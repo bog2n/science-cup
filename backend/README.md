@@ -27,6 +27,38 @@ dziwne...
 
 Zagłębiając się w kod źródłowy z [jednego](https://www.rapidnovor.com/mass-calculator/) z kalkulatorów okazało się że jest to masa cząsteczki wody którą dobrze widać na początku i na końcu jakiegokolwiek z białka które narysujemy w <https://pepdraw.io>
 
+## [PL] Optymalizowanie algorytmu liczącego punkt izoelektryczny
+
+Obliczanie punktu izoelektrycznego jest prostą operacją, dla pH od 0 do 14 liczymy ładunek elektryczny białka i jeżeli jest on równy 0 to to pH jest punktem izoelektrycznym tego białka, oczywiście wszystko jest tylko przybliżeniem i dla dokładnych wyników należy zbadać takie białko w rzeczywistości.
+
+Najprościej jest to zaimplementować robiąc pętle od pH = 0 do ph = 14 obliczamy np. co 0.01 pH ładunek elektryczny białka, i jeżeli jest on równy 0 to zwracamy tą wartość.
+
+Metoda jest prosta, lecz można to zrobić szybciej stosując [bisekcję](https://pl.wikipedia.org/wiki/Metoda_r%C3%B3wnego_podzia%C5%82u), przy zastosowaniu tej metody w naszej funkcji wydajność wzrosła 12 krotnie!
+
+### Pętla
+```
+(924ee2f...) go test -bench="."
+goos: linux
+goarch: amd64
+pkg: motorola/aminoacids
+cpu: Intel(R) Core(TM) i5-3320M CPU @ 2.60GHz
+BenchmarkCalculatePI-4              7183            168556 ns/op
+PASS
+ok      motorola/aminoacids     2.225s
+```
+
+### Bisekcja
+```
+(2077835...) go test -bench="."
+goos: linux
+goarch: amd64
+pkg: motorola/aminoacids
+cpu: Intel(R) Core(TM) i5-3320M CPU @ 2.60GHz
+BenchmarkCalculatePI-4             94546             13154 ns/op
+PASS
+ok      motorola/aminoacids     1.381s
+```
+
 ## Links and sources
 
 - <https://pepdraw.io>
