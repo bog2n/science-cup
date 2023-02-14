@@ -7,7 +7,7 @@ import (
 	"math"
 )
 
-const Debug = true
+const Debug = false
 
 func debug(v ...any) {
 	if Debug {
@@ -64,12 +64,14 @@ func CalculatePI(protein string) float64 {
 		count[string(v)]++
 	}
 	var ph float64 = 0
-	for ph = 0; ph <= 14; ph += 0.05 {
+	for s := 1.0; s <= 8; s++ {
 		q := calculateCharge(count, ph)
-
-		if q <= 0 {
-			break
+		if q > 0 {
+			ph += 14 / math.Pow(2, s)
+		} else {
+			ph -= 14 / math.Pow(2, s)
 		}
+		debug("ph ", ph, " step ", s)
 	}
 	return ph
 }
