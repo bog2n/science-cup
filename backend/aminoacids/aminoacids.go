@@ -22,7 +22,6 @@ var AminoAcids map[string]AminoAcid
 
 // Properties of aminoacids
 type AminoAcid struct {
-	Image     string  `json:"image"`
 	Mass      float64 `json:"mass"`
 	HydroPhob float64 `json:"hydrophob"`
 }

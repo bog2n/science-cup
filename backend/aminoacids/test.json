@@ -1,12 +1,10 @@
 {
 	"U": {
-		"image": "<path d=\"m 100 100 v 500 z\">",
 		"mass": 22.0,
 		"hydrophob": 2.22
 
 	},
 	"A": {
-		"image": "aaaa",
 		"mass": 21.3,
 		"hydrophob": 1.11
 	}
