@@ -1,6 +1,9 @@
 package ribosome
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestGetAminoAcids(t *testing.T) {
 	tests := map[string][]string{
@@ -9,24 +12,15 @@ func TestGetAminoAcids(t *testing.T) {
 		"AUGAAAUAACCCCCCAUggGGUAG": {"MK", "MG"},
 	}
 
-	for val, wwant := range tests {
-		ggot, _ := GetAminoAcids(val)
+	// Loop over test cases
+	for val, want := range tests {
+		got, _ := GetAminoAcids(val)
 
-		// Loop over want items
-		for want := range wwant {
-			eq := false
-			// Loop over output items
-			for got := range ggot {
-				// If any value is equal then we got a match
-				if want == got {
-					eq = true
-				}
-			}
-			if eq == false {
-				t.Errorf("Got %q want %q", ggot, wwant)
-			}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("Got %q want %q", got, want)
 		}
 	}
+
 	// Test errors
 	errortests := map[string]error{
 		"AAAAAUAUGAACGAAAAUCUGUUCGCUUCAUUCAUUGCCCCCACAAUCCUAGGCCUACCCUGA": nil,
@@ -34,6 +28,7 @@ func TestGetAminoAcids(t *testing.T) {
 		"AAAAAUAUGAACGAAAAUCUGUUCGCUUCAUUCAUUGCCCCCACAAUCCUAGGCCUACCC": noProteinError,
 		"AAAACGAAAAUCUGUUCGCUUCAUUCAUUGCCCCCACAAUCCUAGGCCUACCC":        noProteinError,
 	}
+	// Loop over test cases
 	for val, want := range errortests {
 		_, got := GetAminoAcids(val)
 		if got != want {
