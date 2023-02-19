@@ -4,6 +4,7 @@ package image
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 
 	svg "github.com/ajstarks/svgo"
 )
@@ -54,9 +55,21 @@ func DrawText(xy []int, text string, canvas *svg.SVG, direction int) {
 		yoffset = 12
 		xoffset = -6
 	}
+	if text == "NH2" && xmul < 0 {
+		text = "N2H"
+	}
 	for index, v := range text {
 		i := index + 1
-		canvas.Text(x+xmul*i+xoffset, y+ymul*i+yoffset, string(v), "stroke:black;text-anchor:center")
+		if strings.Contains("1234567890", string(v)) {
+			canvas.Text(x+xmul*i+xoffset+4, y+ymul*i+yoffset,
+				string(v), "font-size:8px;stroke:black")
+		} else if string(v) == "-" {
+			canvas.Text(x+xmul*i+xoffset+3, y+ymul*i+yoffset-6,
+				string(v), "stroke:black")
+		} else {
+			canvas.Text(x+xmul*i+xoffset, y+ymul*i+yoffset,
+				string(v), "stroke:black")
+		}
 	}
 }
 
@@ -94,12 +107,12 @@ func DrawLine(xy []int, canvas *svg.SVG, direction int) []int {
 func DrawDLine(xy []int, canvas *svg.SVG, direction int) []int {
 	var x, y = xy[0], xy[1]
 	if direction^U == 0 || direction^D == 0 {
-		drawLine([]int{x - 2, y}, canvas, direction)
-		a := drawLine([]int{x + 2, y}, canvas, direction)
+		DrawLine([]int{x - 2, y}, canvas, direction)
+		a := DrawLine([]int{x + 2, y}, canvas, direction)
 		return []int{a[0] - 2, a[1]}
 	} else {
-		drawLine([]int{x, y - 2}, canvas, direction)
-		a := drawLine([]int{x, y + 2}, canvas, direction)
+		DrawLine([]int{x, y - 2}, canvas, direction)
+		a := DrawLine([]int{x, y + 2}, canvas, direction)
 		return []int{a[0], a[1] - 2}
 	}
 }
@@ -147,7 +160,7 @@ func DrawDTriangle(xy []int, canvas *svg.SVG, direction int, reverse bool) []int
 	cID := newString()
 	var x, y int = xy[0], xy[1]
 	fmt.Fprintf(canvas.Writer, `<clipPath id="%s">`, cID)
-	cords := drawTriangle(xy, canvas, direction, reverse)
+	cords := DrawTriangle(xy, canvas, direction, reverse)
 	canvas.ClipEnd()
 	switch direction {
 	case U, D:
@@ -184,6 +197,54 @@ func DrawDTriangle(xy []int, canvas *svg.SVG, direction int, reverse bool) []int
 		}
 	}
 	return cords
+}
+
+// Draws that strange circle with nitrogen atoms found in Arginine
+func drawNitricCircle(xy []int, canvas *svg.SVG, direction int) {
+	var x, y = xy[0], xy[1]
+
+	x1 := (direction&U/2 - 1)
+	y1 := (direction&L*2 - 1)
+	coords := DrawLine([]int{x + x1*2, y},
+		canvas, direction)
+	for i := 0; i < 3; i++ {
+		canvas.Line(x-x1*2, y+i*-12*x1,
+			x-x1*2, y+i*-12*x1+(direction&U/2-1)*-6,
+			"stroke:black;stroke-width:2px")
+	}
+	x, y = coords[0], coords[1]
+
+	var d int
+	if direction == U {
+		d = UR
+	} else {
+		d = DL
+	}
+	p := DrawLine([]int{x, y - x1*2}, canvas, d)
+	DrawText([]int{p[0], p[1] + x1*2}, "NH2", canvas, d)
+	for i := 0; i < 3; i++ {
+		canvas.Line(x+i*12*x1, y+x1*(i*6*y1+2),
+			x+((i*12)+6)*x1, y+x1*((i*6+3)*y1+2),
+			"stroke:black;stroke-width:2px")
+	}
+
+	if direction == U {
+		d = UL
+	} else {
+		d = DR
+	}
+	p = DrawLine([]int{coords[0] - x1*2, coords[1] + x1*2}, canvas, d)
+	DrawText([]int{p[0] + x1*2, p[1] - x1*2}, "NH2", canvas, d)
+	x1 = -x1
+	y1 = -y1
+	for i := 0; i < 3; i++ {
+		canvas.Line(x+i*12*x1, y+x1*(i*6*y1+2),
+			x+((i*12)+6)*x1, y+x1*((i*6+3)*y1+2),
+			"stroke:black;stroke-width:2px")
+	}
+
+	canvas.Circle(x, y, 8, "fill:white;stroke:black;stroke-width:2px")
+	canvas.Text(x, y+6, "+", "stroke:black;stroke-width:2px;text-anchor:middle")
 }
 
 func newString() string {
