@@ -4,6 +4,234 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
+func v(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		DrawLine(p, canvas, DR)
+		DrawLine(p, canvas, DL)
+	} else {
+		p = DrawLine(p, canvas, U)
+		DrawLine(p, canvas, UR)
+		DrawLine(p, canvas, UL)
+	}
+	return out
+}
+
+func y(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		DrawBensen([]int{p[0] + 30, p[1] - 15}, canvas, D)
+		p = DrawLine([]int{p[0] + 60, p[1] + 30}, canvas, DR)
+		DrawText(p, "OH", canvas, DR)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		DrawBensen([]int{p[0] + 30, p[1] + 15}, canvas, U)
+		p = DrawLine([]int{p[0] + 60, p[1] - 30}, canvas, UR)
+		DrawText(p, "OH", canvas, UR)
+	}
+	return out
+}
+
+func w(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		drawWThingy(p, canvas, D)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		drawWThingy(p, canvas, U)
+	}
+	return out
+}
+
+func t(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		DrawLine(p, canvas, DL)
+		p = DrawLine(p, canvas, DR)
+		DrawText(p, "OH", canvas, DR)
+	} else {
+		p = DrawLine(p, canvas, U)
+		DrawLine(p, canvas, UL)
+		p = DrawLine(p, canvas, UR)
+		DrawText(p, "OH", canvas, UR)
+	}
+	return out
+}
+
+func s(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		DrawText(p, "OH", canvas, DR)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		DrawText(p, "OH", canvas, UR)
+	}
+	return out
+}
+
+func p(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		canvas.Line(p[0], p[1], p[0], p[1]+20, "stroke:black;stroke-width:2px")
+		canvas.Line(p[0], p[1]+20, p[0]-20, p[1]+30, "stroke:black;stroke-width:2px")
+		canvas.Line(p[0]-20, p[1]+30, p[0]-35, p[1]+10, "stroke:black;stroke-width:2px")
+		canvas.Line(p[0]-35, p[1]+10, p[0]-30, p[1]-15, "stroke:black;stroke-width:2px")
+	} else {
+		canvas.Line(p[0], p[1], p[0], p[1]-20, "stroke:black;stroke-width:2px")
+		canvas.Line(p[0], p[1]-20, p[0]-20, p[1]-30, "stroke:black;stroke-width:2px")
+		canvas.Line(p[0]-20, p[1]-30, p[0]-35, p[1]-10, "stroke:black;stroke-width:2px")
+		canvas.Line(p[0]-35, p[1]-10, p[0]-30, p[1]+15, "stroke:black;stroke-width:2px")
+	}
+	return out
+
+}
+
+func f(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		DrawBensen([]int{p[0] + 30, p[1] - 15}, canvas, D)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		DrawBensen([]int{p[0] + 30, p[1] + 15}, canvas, U)
+	}
+	return out
+}
+
+func m(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		p = DrawLine(p, canvas, D)
+		DrawText(p, "S", canvas, D)
+		DrawLine(p, canvas, DR)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		p = DrawLine(p, canvas, U)
+		DrawText(p, "S", canvas, U)
+		DrawLine(p, canvas, UR)
+	}
+	return out
+}
+
+func k(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		p = DrawLine(p, canvas, D)
+		DrawText(p, "NH3", canvas, R)
+		DrawText(p, "+", canvas, D)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		p = DrawLine(p, canvas, U)
+		DrawText(p, "NH3", canvas, R)
+		DrawText(p, "+", canvas, U)
+	}
+	return out
+}
+
+func l(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		DrawLine(p, canvas, D)
+		DrawLine(p, canvas, R)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		DrawLine(p, canvas, U)
+		DrawLine(p, canvas, R)
+	}
+	return out
+}
+
+func i(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		DrawDTriangle(p, canvas, DL, true)
+		p = DrawLine(p, canvas, DR)
+		DrawLine(p, canvas, D)
+	} else {
+		p = DrawLine(p, canvas, U)
+		DrawTriangle(p, canvas, UL, true)
+		p = DrawLine(p, canvas, UR)
+		DrawLine(p, canvas, U)
+	}
+	return out
+}
+
+func h(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		drawHPentagon(p, canvas, D)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		drawHPentagon(p, canvas, U)
+	}
+	return out
+}
+
+func g(xy []int, canvas *svg.SVG, index int) []int {
+	var p []int
+	if index&1 == 0 {
+		DrawText(xy, "NH", canvas, U)
+		p = DrawLine(xy, canvas, DR)
+		p = DrawLine(p, canvas, UR)
+		DrawText(DrawDLine(p, canvas, U), "O", canvas, U)
+		return DrawLine(p, canvas, DR)
+	} else {
+		DrawText(xy, "NH", canvas, D)
+		p = DrawLine(xy, canvas, UR)
+		p = DrawLine(p, canvas, DR)
+		DrawText(DrawDLine(p, canvas, D), "O", canvas, D)
+		return DrawLine(p, canvas, UR)
+	}
+}
+
+func e(xy []int, canvas *svg.SVG, index int) []int {
+	var p, out []int = aminobase(xy, canvas, index)
+	if index&1 == 0 {
+		p = DrawLine(p, canvas, D)
+		p = DrawLine(p, canvas, DR)
+		p = DrawLine(p, canvas, D)
+		DrawText(DrawLine(p, canvas, DR), "O-", canvas, DR)
+		DrawText(DrawDLine(p, canvas, DL), "O", canvas, DL)
+	} else {
+		p = DrawLine(p, canvas, U)
+		p = DrawLine(p, canvas, UR)
+		p = DrawLine(p, canvas, U)
+		DrawText(DrawLine(p, canvas, UR), "O-", canvas, UR)
+		DrawText(DrawDLine(p, canvas, UL), "O", canvas, UL)
+	}
+	return out
+}
+
 func q(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {

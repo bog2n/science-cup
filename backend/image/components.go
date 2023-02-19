@@ -33,6 +33,8 @@ const (
 	DL = D | L
 )
 
+const style = "stroke:black;stroke-width:2px"
+
 // Draw text according to direction of previous point,
 // and reverses it if needed
 func DrawText(xy []int, text string, canvas *svg.SVG, direction int) {
@@ -99,7 +101,7 @@ func DrawLine(xy []int, canvas *svg.SVG, direction int) []int {
 		y2 = 15
 		x2 = 30
 	}
-	canvas.Line(x, y, x+x2, y+y2, "stroke:black;stroke-width:2px")
+	canvas.Line(x, y, x+x2, y+y2, style)
 	return []int{x + x2, y + y2}
 }
 
@@ -209,8 +211,7 @@ func drawNitricCircle(xy []int, canvas *svg.SVG, direction int) {
 		canvas, direction)
 	for i := 0; i < 3; i++ {
 		canvas.Line(x-x1*2, y+i*-12*x1,
-			x-x1*2, y+i*-12*x1+(direction&U/2-1)*-6,
-			"stroke:black;stroke-width:2px")
+			x-x1*2, y+i*-12*x1+(direction&U/2-1)*-6, style)
 	}
 	x, y = coords[0], coords[1]
 
@@ -224,8 +225,7 @@ func drawNitricCircle(xy []int, canvas *svg.SVG, direction int) {
 	DrawText([]int{p[0], p[1] + x1*2}, "NH2", canvas, d)
 	for i := 0; i < 3; i++ {
 		canvas.Line(x+i*12*x1, y+x1*(i*6*y1+2),
-			x+((i*12)+6)*x1, y+x1*((i*6+3)*y1+2),
-			"stroke:black;stroke-width:2px")
+			x+((i*12)+6)*x1, y+x1*((i*6+3)*y1+2), style)
 	}
 
 	if direction == U {
@@ -239,12 +239,59 @@ func drawNitricCircle(xy []int, canvas *svg.SVG, direction int) {
 	y1 = -y1
 	for i := 0; i < 3; i++ {
 		canvas.Line(x+i*12*x1, y+x1*(i*6*y1+2),
-			x+((i*12)+6)*x1, y+x1*((i*6+3)*y1+2),
-			"stroke:black;stroke-width:2px")
+			x+((i*12)+6)*x1, y+x1*((i*6+3)*y1+2), style)
 	}
 
 	canvas.Circle(x, y, 8, "fill:white;stroke:black;stroke-width:2px")
 	canvas.Text(x, y+6, "+", "stroke:black;stroke-width:2px;text-anchor:middle")
+}
+
+// Draws this pentagon thing in Histidine
+func drawHPentagon(xy []int, canvas *svg.SVG, direction int) {
+	y1 := direction&U/2 - 1
+	p := DrawLine(xy, canvas, R)
+	DrawText(p, "N", canvas, R)
+
+	canvas.Line(p[0], p[1], p[0]+15, p[1]-30*y1, style)
+	canvas.Line(p[0]-4, p[1]-4*y1, p[0]+7, p[1]-26*y1, style)
+	DrawLine([]int{p[0] + 15, p[1] - 30*y1}, canvas, L|direction)
+
+	canvas.Line(xy[0], xy[1], xy[0]-15, xy[1]-30*y1, style)
+	canvas.Line(xy[0]+4, xy[1]-4*y1, xy[0]-7, xy[1]-26*y1, style)
+	p = DrawLine([]int{xy[0] - 15, xy[1] - 30*y1}, canvas, R|direction)
+
+	DrawText(p, "NH", canvas, direction)
+}
+
+// Strange combination of pentagon and benzen (tryptophan)
+func drawWThingy(xy []int, canvas *svg.SVG, direction int) {
+	y1 := direction&U/2 - 1
+	p := DrawLine(xy, canvas, R)
+	canvas.Line(xy[0]+2, xy[1]-y1*4, xy[0]+28, xy[1]-y1*4, style)
+
+	DrawBensen([]int{xy[0] - 15, xy[1] - 30*y1}, canvas, direction)
+	canvas.Line(xy[0], xy[1], xy[0]-15, xy[1]-30*y1, style)
+	DrawLine([]int{p[0] + 15, p[1] - 30*y1}, canvas, L|direction)
+
+	canvas.Line(p[0], p[1], p[0]+15, p[1]-30*y1, style)
+	DrawText([]int{xy[0] + 45, xy[1] - 30*y1}, "NH", canvas, R|direction)
+
+}
+
+func DrawBensen(xy []int, canvas *svg.SVG, direction int) {
+	var p []int
+	y1 := direction&U/2 - 1
+	xy = []int{xy[0] - 30, xy[1] - 15*y1}
+
+	p = DrawLine(xy, canvas, R|(direction^(U|D)))
+	canvas.Line(p[0]+2, p[1]-y1*6, p[0]+26, p[1]-y1*18, style)
+	p = DrawLine(p, canvas, R|direction)
+	p = DrawLine(p, canvas, direction)
+	canvas.Line(p[0]-4, p[1]+y1*3, p[0]-28, p[1]-y1*9, style)
+	p = DrawLine(p, canvas, L|direction)
+	p = DrawLine(p, canvas, L|(direction^(U|D)))
+	canvas.Line(p[0]+4, p[1]+y1*3, p[0]+4, p[1]+y1*27, style)
+	p = DrawLine(p, canvas, (direction ^ (U | D)))
 }
 
 func newString() string {
