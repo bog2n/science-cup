@@ -9,7 +9,7 @@
 	- ~~calculate pH index~~
 	- ~~calculate polarity~~
 - ~~add images in svg format~~
-- handle image translating and merging
+- ~~handle image translating and merging~~
 - write http server api documentation
 - write endpoint handlers
 
