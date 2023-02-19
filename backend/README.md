@@ -13,6 +13,47 @@
 - write http server api documentation
 - write endpoint handlers
 
+## HTTP API
+
+### POST `/data` - `genome=<RNA/DNA sequence>`
+
+Sample data:
+```json
+{
+  "ok": true,
+  "proteins": [
+    {
+      "protein": "MHFVRTTGLY",
+      "mass": 1223.6121131859998,
+      "hindex": 8.89,
+      "isopoint": 9.3515625,
+      "ph": 2.1167595868870497,
+      "polarity": 1
+    },
+    {
+      "protein": "MSKFCISLKFHNQDYSTKG",
+      "mass": 2233.065994286,
+      "hindex": 19.480000000000004,
+      "isopoint": 9.2421875,
+      "ph": 2.3831267830805074,
+      "polarity": 2
+    },
+    {
+      "protein": "MQPNVPFNSHEV",
+      "mass": 1397.639784486,
+      "hindex": 13.77,
+      "isopoint": 3.8828125,
+      "ph": 2.5562488354658397,
+      "polarity": -2
+    }
+  ]
+}
+```
+
+### GET `/image?protein=<protein>`
+
+Returns svg image for given protein
+
 ## [PL] Obliczanie masy białka
 
 Testując funkcję obliczającą masę białka otrzymywałem tą samą różnicę pomiędzy obliczoną masą a tą która wychodziła z kalkulatorów:
