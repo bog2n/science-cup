@@ -4,6 +4,7 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
+// Valine
 func v(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -18,6 +19,7 @@ func v(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Tyrosine
 func y(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -36,6 +38,7 @@ func y(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Tryptophan
 func w(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -50,6 +53,7 @@ func w(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Threonine
 func t(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -66,6 +70,7 @@ func t(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Serine
 func s(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -80,6 +85,7 @@ func s(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Proline
 func p(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -97,6 +103,7 @@ func p(xy []int, canvas *svg.SVG, index int) []int {
 
 }
 
+// Phenylalanine
 func f(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -111,6 +118,7 @@ func f(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Methionine
 func m(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -129,6 +137,7 @@ func m(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Lysine
 func k(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -151,6 +160,7 @@ func k(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Leucine
 func l(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -167,6 +177,7 @@ func l(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Isoleucine
 func i(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -183,6 +194,7 @@ func i(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Histidine
 func h(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -197,6 +209,7 @@ func h(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Glycine
 func g(xy []int, canvas *svg.SVG, index int) []int {
 	var p []int
 	if index&1 == 0 {
@@ -214,6 +227,7 @@ func g(xy []int, canvas *svg.SVG, index int) []int {
 	}
 }
 
+// Glutamic Acid
 func e(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -232,6 +246,7 @@ func e(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Glutamine
 func q(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -250,6 +265,7 @@ func q(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Cysteine
 func c(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -262,6 +278,7 @@ func c(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Aspartic Acid
 func d(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -278,6 +295,7 @@ func d(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Aspargine
 func n(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -294,6 +312,7 @@ func n(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Arginine
 func r(xy []int, canvas *svg.SVG, index int) []int {
 	var p, out []int = aminobase(xy, canvas, index)
 	if index&1 == 0 {
@@ -314,6 +333,7 @@ func r(xy []int, canvas *svg.SVG, index int) []int {
 	return out
 }
 
+// Alanine
 func a(xy []int, canvas *svg.SVG, index int, end bool) []int {
 	var p []int
 	if index&1 == 0 {
