@@ -243,7 +243,7 @@ func drawNitricCircle(xy []int, canvas *svg.SVG, direction int) {
 	}
 
 	canvas.Circle(x, y, 8, "fill:white;stroke:black;stroke-width:2px")
-	canvas.Text(x, y+6, "+", "stroke:black;stroke-width:2px;text-anchor:middle")
+	canvas.Text(x, y+4, "+", "stroke:black;text-anchor:middle")
 }
 
 // Draws this pentagon thing in Histidine
