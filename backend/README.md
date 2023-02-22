@@ -37,7 +37,7 @@ Sample data:
 }
 ```
 
-### GET `/image?protein=<protein>`
+### GET `/image/<protein>`
 
 Returns svg image for given protein
 

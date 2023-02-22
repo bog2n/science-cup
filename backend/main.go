@@ -86,7 +86,7 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 func handleImage(w http.ResponseWriter, r *http.Request) {
 	// TODO handle gzipping
 	w.Header().Set("Content-type", "image/svg+xml")
-	image.DrawProtein(r.FormValue("protein"), w)
+	image.DrawProtein(r.URL.Path[len("/image/"):], w)
 }
 
 // TODO replace with actual frontend
@@ -123,6 +123,6 @@ func main() {
 	}
 	http.HandleFunc("/", handleMain)
 	http.HandleFunc("/data", handleData)
-	http.HandleFunc("/image", handleImage)
+	http.HandleFunc("/image/", handleImage)
 	log.Fatal(http.ListenAndServe(bindString, nil))
 }
