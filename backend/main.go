@@ -1,6 +1,7 @@
 package main
 
 import (
+	"compress/gzip"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -12,6 +13,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
+	"strings"
 )
 
 var (
@@ -84,9 +86,15 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 
 // Handles /image endpoint for generating images
 func handleImage(w http.ResponseWriter, r *http.Request) {
-	// TODO handle gzipping
 	w.Header().Set("Content-type", "image/svg+xml")
-	image.DrawProtein(r.URL.Path[len("/image/"):], w)
+	if strings.Contains(r.Header.Get("Accept-encoding"), "gzip") {
+		g := gzip.NewWriter(w)
+		defer g.Close()
+		w.Header().Set("Content-encoding", "gzip")
+		image.DrawProtein(r.URL.Path[len("/image/"):], g)
+	} else {
+		image.DrawProtein(r.URL.Path[len("/image/"):], w)
+	}
 }
 
 // TODO replace with actual frontend
