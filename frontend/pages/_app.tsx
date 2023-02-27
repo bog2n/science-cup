@@ -6,7 +6,6 @@ export default function App({ Component, pageProps }: AppProps) {
   // const requestHeaders = new Headers(Request.headers);
 
   // Add new request headers
-  request.headers.append("Access-Control-Allow-Origin", "*");
-  console.log(request);
+  //console.log(request);
   return <Component {...pageProps} />;
 }

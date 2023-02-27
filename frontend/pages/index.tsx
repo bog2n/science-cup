@@ -18,10 +18,10 @@ export default function Home() {
   }
   function submitHandler(e: any) {
     e.preventDefault();
-    console.log(value);
     console.log("submitted");
+	let value = 'genome="accc"'
 
-    fetch("https://test.duckl1ng.xyz/data", {
+    fetch("/api/data", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
