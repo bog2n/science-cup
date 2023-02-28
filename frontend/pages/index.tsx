@@ -12,13 +12,13 @@ export default function Home() {
   return (
     <main className="max-w-7xl mx-auto">
       {/* Main header. */}
-      <header className="bg-red-300 py-32">
+      <header className="py-32">
         <h1 className="text-center max-w-3xl mx-auto">
           Potężna aplikacja webowa.
         </h1>
       </header>
       {/* Insert data to calculate. */}
-      <section className="flex justify-center items-center py-16">
+      <section className="flex justify-center items-center">
         <Form />
       </section>
     </main>
