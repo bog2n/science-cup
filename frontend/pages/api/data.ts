@@ -1,15 +1,25 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+type Protein = {
+  protein: string,
+  mass: number,
+  hindex: number,
+  isopoint: number,
+  ph: number,
+  polarity: number,
+}
+
 type Data = {
-  name: string
+  ok: boolean,
+  proteins: Protein[],
 }
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-	console.log("ASDS")
+  console.log("ASDS")
   res.status(200).json(
   {
   "ok": true,
