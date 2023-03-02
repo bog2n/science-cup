@@ -4,13 +4,15 @@ import { Inter } from "@next/font/google";
 import { useState } from "react";
 
 // Components
-import Form from "../components/form/Form";
+import Form from "../components/Form";
+import DataCard from "@/components/DataCard";
+import SchemaCard from "@/components/SchemaCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <main className="max-w-7xl mx-auto">
+    <main className="max-w-7xl mx-auto fir">
       {/* Main header. */}
       <header className="py-32">
         <h1 className="text-center max-w-3xl mx-auto">
@@ -18,8 +20,22 @@ export default function Home() {
         </h1>
       </header>
       {/* Insert data to calculate. */}
-      <section className="flex justify-center items-center">
+      <section className="flex justify-center items-center mb-36">
         <Form />
+      </section>
+      {/* Printed data. */}
+      <section className="mb-10">
+        {/* Data */}
+        <div className="grid grid-cols-3 gap-10">
+          <DataCard title="Masa" data="10" />
+          <DataCard title="Masa" data="10" />
+          <DataCard title="Masa" data="10" />
+        </div>
+        {/* PH chart */}
+        {/* Schema */}
+        <div>
+          <SchemaCard />
+        </div>
       </section>
     </main>
   );
