@@ -7,10 +7,16 @@ import { useState } from "react";
 import Form from "../components/Form";
 import DataCard from "@/components/DataCard";
 import SchemaCard from "@/components/SchemaCard";
+import PHChart from "@/components/PHChart";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [fill, setFill] = useState(3);
+
+  function changeFillHandler() {
+    setFill(Math.round(Math.random() * 14));
+  }
   return (
     <main className="max-w-7xl mx-auto fir">
       {/* Main header. */}
@@ -32,6 +38,10 @@ export default function Home() {
           <DataCard title="Masa" data="10" />
         </div>
         {/* PH chart */}
+        <div className="my-10">
+          <button onClick={changeFillHandler}>Change fill</button>
+          <PHChart fill={fill} />
+        </div>
         {/* Schema */}
         <div>
           <SchemaCard />
