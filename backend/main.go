@@ -6,11 +6,14 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"mime"
 	"motorola/aminoacids"
+	"motorola/frontend"
 	"motorola/image"
 	"motorola/ribosome"
 	"net/http"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
@@ -99,21 +102,21 @@ func handleImage(w http.ResponseWriter, r *http.Request) {
 
 // TODO replace with actual frontend
 func handleMain(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(`
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-</head>
-<body>
-	<form action="/data" method=post>
-		<input type=text name=genome>
-		<input type=submit value=go>
-	</form>
-</body>
-</html>
-`))
+	path := r.URL.Path
+	if path == "/" {
+		path = "/index.html"
+	}
+	path = "out" + path
+	b, err := frontend.Content.ReadFile(path)
+	if err != nil {
+		w.WriteHeader(404)
+		w.Write(frontend.NotFound)
+		return
+	}
+	ext := filepath.Ext(path)
+	m := mime.TypeByExtension(ext)
+	w.Header().Set("Content-type", m)
+	w.Write(b)
 }
 
 func init() {
@@ -130,7 +133,7 @@ func main() {
 		openBrowser("http://" + bindString)
 	}
 	http.HandleFunc("/", handleMain)
-	http.HandleFunc("/data", handleData)
-	http.HandleFunc("/image/", handleImage)
+	http.HandleFunc("/api/data", handleData)
+	http.HandleFunc("/api/image/", handleImage)
 	log.Fatal(http.ListenAndServe(bindString, nil))
 }

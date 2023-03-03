@@ -2,14 +2,14 @@ import React from "react";
 import RightArrow from "./Icons/RightArrow";
 import UploadIcon from "./Icons/UploadIcon";
 
-export default function Form() {
+export default function Form({dataHandler}:any) {
   // Handlers
-  function submitHandler() {
-    console.log("submitted");
+  function submitHandler(e:any) {
+	e.preventDefault();
+	dataHandler(e);
   }
   return (
     <form
-      action="#"
       onSubmit={submitHandler}
       className="flex flex-col items-center gap-7"
     >
