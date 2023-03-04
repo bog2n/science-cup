@@ -10,4 +10,4 @@
 - fix spacing between data cards
 - ~~fix ph values that are close to each other~~
 - ~~add image handling~~
-- fix image component
+- ~~fix image component~~
