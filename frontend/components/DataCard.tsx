@@ -23,12 +23,11 @@ export default function DataCard({ title, data, unit }: IProps) {
     <Card>
       <h2 className="text-gray-500 text-lg">{title}</h2>
 
-      {!data && <span>-</span>}
+      {!roundedData && <span>-</span>}
 
-      {data && (
-        <span className="text-3xl text-black font-bold">{`${prefix}${roundedData}${
-          unit ? ` ${unit}` : ""
-        }`}</span>
+      {roundedData && (
+        <span className="text-3xl text-black font-bold">{`${prefix}${roundedData}
+          ${unit ? ` ${unit}` : ""}`}</span>
       )}
     </Card>
   );
