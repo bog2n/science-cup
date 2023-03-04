@@ -15,14 +15,18 @@ export default function DataCard({
   unit,
 }: IProps) {
   const roundedData = Math.round(data * 100) / 100;
+  let prefix = "";
+  if (title == "Polaryzacja" && roundedData > 0) {
+    prefix = "+";
+  }
   return (
     <Card>
       <h2 className="text-gray-500 text-lg">{title}</h2>
 
       {unit ? (
-        <span className="text-3xl text-black font-bold">{`${roundedData} ${unit}`}</span>
+        <span className="text-3xl text-black font-bold">{`${prefix}${roundedData} ${unit}`}</span>
       ) : (
-        <span className="text-3xl text-black font-bold">{`${roundedData}`}</span>
+        <span className="text-3xl text-black font-bold">{`${prefix}${roundedData}`}</span>
       )}
     </Card>
   );

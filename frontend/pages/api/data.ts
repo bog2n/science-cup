@@ -19,7 +19,6 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log("ASDS")
   res.status(200).json(
   {
   "ok": true,
