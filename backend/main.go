@@ -76,7 +76,7 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 	// String not found, try to fetch file
 	if genome == "" {
 		if err := r.ParseMultipartForm(maxUploadSize << 20); err != nil {
-			log.Print("File size too large ", err)
+			log.Print("Error while parsing form data ", err)
 			handleDataError(w)
 			return
 		}
