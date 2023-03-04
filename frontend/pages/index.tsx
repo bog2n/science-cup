@@ -37,18 +37,18 @@ export default function Home() {
     console.log("from index,", genome, file);
     let requestParameters;
 
-    if (genome == "") {
+    if (file == null) {
+      requestParameters = {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "genome=" + genome,
+      };
+    } else {
       let data = new FormData();
       data.append("file", file);
       requestParameters = {
         method: "POST",
         body: data,
-      };
-    } else {
-      requestParameters = {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "genome=" + genome,
       };
     }
 
@@ -156,18 +156,18 @@ export default function Home() {
         <div className="flex ">
           {/* Data */}
           <div className="grid grid-cols-2 grid-rows-2 gap-4 flex-grow">
-            <DataCard title="Mass" data={currentProtein?.mass} unit="U" />
-            <DataCard title="Isopoint" data={currentProtein?.isopoint} />
-            <DataCard title="Polarity" data={currentProtein?.polarity} />
+            <DataCard title="Masa" data={currentProtein?.mass} unit="U" />
+            <DataCard title="Indeks Hydrofobowy" data={currentProtein?.hindex} unit="kcal/mol" />
+            <DataCard title="Polaryzacja" data={currentProtein?.polarity} />
             {/* PH chart legend */}
-            <div className="flex flex-col gap-3 justify-end pl-7 pt-7 pr-7">
+            <div className="flex flex-col gap-3 p-7 justify-end">
               <div className="flex justify-start items-center gap-3">
                 <span className="block h-1 w-12 bg-green-400"></span>{" "}
-                <span>PH białka.</span>
+                <span>PH białka</span>
               </div>
               <div className="flex justify-start items-center gap-3">
                 <span className="block h-1 w-12 bg-purple-400"></span>{" "}
-                <span>Punkt izo coś tam.</span>
+                <span>Punkt izoelektryczny</span>
               </div>
             </div>
           </div>
