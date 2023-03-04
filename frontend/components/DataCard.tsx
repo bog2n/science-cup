@@ -16,7 +16,7 @@ export default function DataCard({ title, data, unit }: IProps) {
   if (data) {
     roundedData = Math.round(data * 100) / 100;
   }
-  if (title == "Polaryzacja" && roundedData > 0) {
+  if (roundedData && title == "Polaryzacja" && roundedData > 0) {
     prefix = "+";
   }
   return (
