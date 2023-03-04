@@ -34,14 +34,14 @@ export default function PHChart({ ph, index }: IProps) {
         <div className="relative w-32 h-full bg-gradient-to-t from-red-600 via-yellow-500 to-blue-600 rounded-lg">
           {/* PH line */}
           <div
-            style={{ top: `${phPosition}%` }}
+            style={{ bottom: `${phPosition}%` }}
             className={`w-full h-1 bg-green-500 left-0 absolute transform -translate-y-1/2 transition-all duration-700 ${
               ph ? "opacity-100" : "opacity-0"
             }`}
           ></div>
           {/* Index line */}
           <div
-            style={{ top: `${indexPosition}%` }}
+            style={{ bottom: `${indexPosition}%` }}
             className={`w-full h-1 bg-purple-500 left-0 absolute transform -translate-y-1/2 transition-all duration-1000 ${
               ph ? "opacity-100" : "opacity-0"
             }`}
@@ -52,7 +52,7 @@ export default function PHChart({ ph, index }: IProps) {
           14
         </span>
         <span
-          style={{ top: `${phPosition}%` }}
+          style={{ bottom: `${phPosition}%` }}
           className={`text-xl font-bold right-full mr-2 absolute transform -translate-y-1/2 transition-all duration-700 ${
             ph ? "opacity-100" : "opacity-0"
           }`}
@@ -60,7 +60,7 @@ export default function PHChart({ ph, index }: IProps) {
           {roundedPh}
         </span>
         <span
-          style={{ top: `${indexPosition}%` }}
+          style={{ bottom: `${indexPosition}%` }}
           className={`text-xl font-bold right-full mr-2 absolute transform -translate-y-1/2 transition-all duration-1000 ${
             ph ? "opacity-100" : "opacity-0"
           }`}
