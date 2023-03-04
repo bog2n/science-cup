@@ -27,8 +27,6 @@ interface IProteinsData {
 
 export default function Home() {
   //* States
-  // TODO handle state when no protein is selected
-  // TODO highlight selected protein in the list
   // Each protein data.
   const [proteinsData, setProteinsData] = useState<null | IProteinsData>(null);
   const [currentProtein, setCurrentProtein] = useState<null | IProtein>(null);
@@ -104,12 +102,13 @@ export default function Home() {
         <div className="relative z-50 mb-4">
           <button
             onClick={listOpenHandler}
-            className="text-left max-w-sm text-lg font-bold flex justify-center items-center gap-2"
+            disabled={!proteinsData}
+            className="text-left max-w-sm text-lg font-bold flex justify-center items-center gap-2 disabled:pointer-events-none disabled:text-gray-400"
           >
             <span className="truncate">
-              {!currentProtein
-                ? "Wybierz białko z listy"
-                : currentProtein.protein}
+              {!proteinsData
+                ? "Wprowadź sekwencję DNA"
+                : currentProtein?.protein}
             </span>{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +140,11 @@ export default function Home() {
                 return (
                   <li key={index}>
                     <button
-                      className="block px-5 py-2 w-full break-all text-left hover:bg-gray-200"
+                      className={`block px-5 py-2 w-full break-all text-left hover:bg-gray-300 ${
+                        protein.protein === currentProtein?.protein
+                          ? "bg-gray-200"
+                          : ""
+                      }`}
                       onClick={() => changeProteinHandler(protein)}
                     >
                       {protein.protein}
