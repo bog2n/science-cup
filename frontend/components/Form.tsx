@@ -1,18 +1,15 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import RightArrow from "./Icons/RightArrow";
 import UploadIcon from "./Icons/UploadIcon";
 
-export default function Form({dataHandler}:any) {
+export default function Form({ dataHandler }: any) {
   // Handlers
-  function submitHandler(e:any) {
-	e.preventDefault();
-	dataHandler(e);
+  function submitHandler(e: FormEvent) {
+    e.preventDefault();
+    dataHandler(e);
   }
   return (
-    <form
-      onSubmit={submitHandler}
-      className="flex flex-col items-center gap-7"
-    >
+    <form onSubmit={submitHandler} className="flex flex-col items-center gap-7">
       {/* Text input. */}
       <div className="relative w-[30rem]">
         <input

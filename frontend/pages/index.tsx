@@ -8,18 +8,33 @@ import Form from "../components/Form";
 import DataCard from "@/components/DataCard";
 import SchemaCard from "@/components/SchemaCard";
 import PHChart from "@/components/PHChart";
+import RightArrow from "@/components/Icons/RightArrow";
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface IProtein {
+  hindex: number;
+  isopoint: number;
+  mass: number;
+  ph: number;
+  polarity: number;
+  protein: string;
+}
+interface IProteinsData {
+  ok: boolean;
+  proteins: IProtein[];
+}
+
 export default function Home() {
-  const [fill, setFill] = useState(3);
+  //* States
+  // TODO handle state when no protein is selected
+  // Each protein data.
+  const [proteinsData, setProteinsData] = useState<null | IProteinsData>(null);
+  const [currentProtein, setCurrentProtein] = useState<null | IProtein>(null);
 
-  // TODO remove in near future
-  function changeFillHandler() {
-    setFill(Math.round(Math.random() * 14));
-  }
+  const [listIsOpen, setListIsOpen] = useState(false);
 
-  function processData(data:any) {
+  function processData(data: any) {
     let genome = data.target[0].value;
     let file = data.target[2].files[0];
     let requestParameters;
@@ -29,29 +44,41 @@ export default function Home() {
       data.append("file", file);
       requestParameters = {
         method: "POST",
-        body: data
+        body: data,
       };
     } else {
       requestParameters = {
         method: "POST",
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: 'genome=' + genome
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "genome=" + genome,
       };
     }
 
-    fetch('/api/data', requestParameters)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      // TODO handle this
-    })
-    .catch((error) => {
-      // TODO handle this
-    });
+    fetch("/api/data", requestParameters)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // TODO handle this
+        setProteinsData(data);
+        setCurrentProtein(data.proteins[0]);
+      })
+      .catch((error) => {
+        // TODO handle this
+      });
+  }
+
+  //* Handlers
+  function listOpenHandler() {
+    setListIsOpen((prev) => !prev);
+  }
+  function changeProteinHandler(newProtein: IProtein) {
+    setListIsOpen(false);
+    // Update the protein which is going to be displayed.
+    setCurrentProtein(newProtein);
   }
 
   return (
-    <main className="max-w-7xl mx-auto fir">
+    <main className="max-w-7xl mx-auto px-16">
       {/* Main header. */}
       <header className="py-32">
         <h1 className="text-center max-w-3xl mx-auto">
@@ -62,8 +89,67 @@ export default function Home() {
       <section className="flex justify-center items-center mb-36">
         <Form dataHandler={processData} />
       </section>
+
       {/* Printed data. */}
       <section className="mb-10">
+        {/* Whole screen overlay */}
+        {listIsOpen && (
+          <div
+            onClick={() => setListIsOpen(false)}
+            className="block absolute inset-0 z-40"
+          ></div>
+        )}
+        {/* List with all proteins. */}
+        <div className="relative z-50 mb-4">
+          <button
+            onClick={listOpenHandler}
+            className="text-left max-w-sm text-lg font-bold flex justify-center items-center gap-2"
+          >
+            <span className="truncate">
+              {!currentProtein
+                ? "Wybierz białko z listy"
+                : currentProtein.protein}
+            </span>{" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              className={`block w-12 h-5 transform transition-transform ${
+                !listIsOpen ? "rotate-0" : "rotate-90"
+              }`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
+          <ul
+            className={`absolute top-full mt-3 flex flex-col justify-start gap-2 bg-gray-50 shadow-lg max-w-2xl max-h-52 overflow-y-scroll rounded-lg transform transition-all duration-300 ${
+              !listIsOpen
+                ? "-translate-y-10 opacity-0 pointer-events-none"
+                : "translate-y-0 opacity-100 pointer-events-auto"
+            }`}
+          >
+            {/* List of the proteins in each protein. */}
+            {proteinsData &&
+              proteinsData.proteins.map((protein: IProtein, index) => {
+                return (
+                  <li key={index}>
+                    <button
+                      className="block px-5 py-2 w-full break-all text-left hover:bg-gray-200"
+                      onClick={() => changeProteinHandler(protein)}
+                    >
+                      {protein.protein}
+                    </button>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
         {/* Data */}
         <div className="grid grid-cols-3 gap-10">
           <DataCard title="Masa" data="10" />
@@ -73,8 +159,7 @@ export default function Home() {
         {/* PH chart */}
         {/* TODO dwie krechy... */}
         <div className="my-10">
-          <button onClick={changeFillHandler}>Change fill</button>
-          <PHChart fill={fill} />
+          <PHChart fill={4} />
         </div>
         {/* Schema */}
         <div>
