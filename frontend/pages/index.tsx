@@ -28,6 +28,7 @@ interface IProteinsData {
 export default function Home() {
   //* States
   // TODO handle state when no protein is selected
+  // TODO highlight selected protein in the list
   // Each protein data.
   const [proteinsData, setProteinsData] = useState<null | IProteinsData>(null);
   const [currentProtein, setCurrentProtein] = useState<null | IProtein>(null);
@@ -150,16 +151,17 @@ export default function Home() {
               })}
           </ul>
         </div>
-        {/* Data */}
-        <div className="grid grid-cols-3 gap-10">
-          <DataCard title="Masa" data="10" />
-          <DataCard title="Index Hydrofobowy" data="10" />
-          <DataCard title="Polarność" data="10" />
-        </div>
-        {/* PH chart */}
-        {/* TODO dwie krechy... */}
-        <div className="my-10">
-          <PHChart fill={4} />
+        <div className="flex ">
+          {/* Data */}
+          <div className="grid grid-cols-2 grid-rows-2 gap-4 flex-grow">
+            <DataCard title="Masa" data="10" />
+            <DataCard title="Index Hydrofobowy" data="10" />
+            <DataCard title="Polarność" data="10" />
+          </div>
+          {/* PH chart */}
+          <div className="">
+            <PHChart ph={currentProtein?.ph} index={currentProtein?.isopoint} />
+          </div>
         </div>
         {/* Schema */}
         <div>
