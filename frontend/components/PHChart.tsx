@@ -10,7 +10,7 @@ export default function PHChart({ ph, index }: IProps) {
   let roundedIndex = 0;
   let phPosition = 0;
   let indexPosition = 0;
-  let offset = false;
+  let offset = 0;
 
   if (ph) {
     roundedPh = Math.round(ph * 100) / 100;
@@ -23,9 +23,14 @@ export default function PHChart({ ph, index }: IProps) {
 
   // Add offset if values are too close.
   if (Math.abs(roundedPh - roundedIndex) < 1.5) {
-    offset = true;
+    // Check which one is higher.
+    if (roundedPh > roundedIndex) {
+      offset = 4;
+    } else {
+      offset = -4;
+    }
   } else {
-    offset = false;
+    offset = 0;
   }
 
   return (
@@ -56,7 +61,7 @@ export default function PHChart({ ph, index }: IProps) {
         {/* PH scale 'numbers' */}
         <span className="text-md absolute top-0 left-full ml-1">14</span>
         <span
-          style={{ bottom: `${offset ? phPosition - 4 : phPosition}%` }}
+          style={{ bottom: `${offset ? phPosition + offset : phPosition}%` }}
           className={`text-xl font-bold right-full mr-2 absolute transform translate-y-[35%] transition-all duration-700 ${
             ph ? "opacity-100" : "opacity-0"
           }`}
@@ -64,7 +69,9 @@ export default function PHChart({ ph, index }: IProps) {
           {roundedPh}
         </span>
         <span
-          style={{ bottom: `${offset ? indexPosition + 4 : indexPosition}%` }}
+          style={{
+            bottom: `${offset ? indexPosition - offset : indexPosition}%`,
+          }}
           className={`text-xl font-bold right-full mr-2 absolute transform translate-y-[35%] transition-all duration-1000 ${
             ph ? "opacity-100" : "opacity-0"
           }`}
