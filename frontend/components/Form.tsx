@@ -13,7 +13,6 @@ export default function Form({ dataHandler }: any) {
   }
 
   function uploadFileHandler(e: any) {
-    console.log(e);
     setGenomeFile(e.target.files[0]);
   }
   function resetInputs() {

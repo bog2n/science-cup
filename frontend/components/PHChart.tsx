@@ -20,8 +20,6 @@ export default function PHChart({ ph, index }: IProps) {
     indexPosition = (index / 14) * 100; // in percentage
   }
 
-  console.log(ph, roundedPh);
-  console.log(index, roundedIndex);
   return (
     // Chart
     <div className="flex flex-col h-full justify-center gap-1 mx-10">

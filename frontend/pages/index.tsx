@@ -34,7 +34,6 @@ export default function Home() {
   const [listIsOpen, setListIsOpen] = useState(false);
 
   function processData(genome: string, file: File) {
-    console.log("from index,", genome, file);
     let requestParameters;
 
     if (file == null) {
@@ -55,7 +54,6 @@ export default function Home() {
     fetch("/api/data", requestParameters)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         // TODO handle this
         setProteinsData(data);
         setCurrentProtein(data.proteins[0]);
