@@ -94,7 +94,7 @@ export default function Home() {
         {listIsOpen && (
           <div
             onClick={() => setListIsOpen(false)}
-            className="block absolute inset-0 z-40"
+            className="block fixed inset-0 z-40"
           ></div>
         )}
         {/* List with all proteins. */}
