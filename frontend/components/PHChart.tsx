@@ -54,9 +54,7 @@ export default function PHChart({ ph, index }: IProps) {
           ></div>
         </div>
         {/* PH scale 'numbers' */}
-        <span className="text-md absolute top-0  transform -translate-y-1/2 left-full ml-1">
-          14
-        </span>
+        <span className="text-md absolute top-0 left-full ml-1">14</span>
         <span
           style={{ bottom: `${offset ? phPosition - 4 : phPosition}%` }}
           className={`text-xl font-bold right-full mr-2 absolute transform translate-y-[35%] transition-all duration-700 ${
@@ -73,9 +71,7 @@ export default function PHChart({ ph, index }: IProps) {
         >
           {roundedIndex}
         </span>
-        <span className="text-md absolute bottom-0 transform translate-y-1/2 left-full ml-1">
-          0
-        </span>
+        <span className="text-md absolute bottom-0 left-full ml-1">0</span>
       </div>
     </div>
   );

@@ -152,10 +152,14 @@ export default function Home() {
               })}
           </ul>
         </div>
-        <div className="flex ">
+        <div className="flex mb-8">
           {/* Data */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-4 flex-grow">
-            <DataCard title="Masa" data={currentProtein?.mass} unit="U" />
+          <div className="grid grid-cols-2 grid-rows-2 gap-3 flex-grow">
+            <DataCard
+              title="Masa molowa"
+              data={currentProtein?.mass}
+              unit="U"
+            />
             <DataCard
               title="Indeks Hydrofobowy"
               data={currentProtein?.hindex}
@@ -175,7 +179,7 @@ export default function Home() {
             </div>
           </div>
           {/* PH chart */}
-          <div className="">
+          <div className="pl-16 pr-0">
             <PHChart ph={currentProtein?.ph} index={currentProtein?.isopoint} />
           </div>
         </div>
