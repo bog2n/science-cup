@@ -21,14 +21,25 @@ export default function Home() {
 
   function processData(data:any) {
     let genome = data.target[0].value;
-    setFill(genome);
-    fetch('/api/data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: "genome="+genome,
-    })
+    let file = data.target[2].files[0];
+    let requestParameters;
+
+    if (genome == "") {
+      let data = new FormData();
+      data.append("file", file);
+      requestParameters = {
+        method: "POST",
+        body: data
+      };
+    } else {
+      requestParameters = {
+        method: "POST",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'genome=' + genome
+      };
+    }
+
+    fetch('/api/data', requestParameters)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"mime"
 	"motorola/aminoacids"
@@ -20,10 +21,11 @@ import (
 )
 
 var (
-	bindAddress string
-	port        uint
-	noBrowser   bool
-	bindString  string
+	bindAddress   string
+	port          uint
+	noBrowser     bool
+	bindString    string
+	maxUploadSize int64
 )
 
 type Response struct {
@@ -58,12 +60,44 @@ func openBrowser(url string) {
 	}
 }
 
+func handleDataError(w http.ResponseWriter) {
+	w.Header().Set("Content-type", "application/json")
+	b, _ := json.Marshal(Response{Ok: false})
+	w.Write(b)
+}
+
 // Handles finding all proteins in RNA/DNA sequence
 func handleData(w http.ResponseWriter, r *http.Request) {
-	// TODO file uploading handler
-	genome := r.FormValue("genome")
+	var genome string
 	var out Response
 	out.Ok = true
+	genome = r.FormValue("genome")
+
+	// String not found, try to fetch file
+	if genome == "" {
+		if err := r.ParseMultipartForm(maxUploadSize << 20); err != nil {
+			log.Print("Error while parsing form data ", err)
+			handleDataError(w)
+			return
+		}
+
+		file, _, err := r.FormFile("file")
+		if err != nil {
+			log.Print("Error while getting the file ", err)
+			handleDataError(w)
+			return
+		}
+		defer file.Close()
+
+		b, err := ioutil.ReadAll(file)
+		if err != nil {
+			log.Print("Error while fetching the file ", err)
+			handleDataError(w)
+			return
+		}
+		genome = string(b)
+	}
+
 	for i := 0; i < 3; i++ {
 		prot, err := ribosome.GetAminoAcids(genome[i:])
 		if err != nil {
@@ -90,6 +124,8 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 // Handles /image endpoint for generating images
 func handleImage(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "image/svg+xml")
+
+	// Gzip if necessary
 	if strings.Contains(r.Header.Get("Accept-encoding"), "gzip") {
 		g := gzip.NewWriter(w)
 		defer g.Close()
@@ -124,6 +160,7 @@ func init() {
 	flag.StringVar(&bindAddress, "b", "127.0.0.1", "Address to listen on")
 	flag.UintVar(&port, "p", 8080, "Port to listen on")
 	flag.BoolVar(&noBrowser, "nobrowser", false, "Do not open browser on startup")
+	flag.Int64Var(&maxUploadSize, "max", 128, "Max upload size in MB")
 	flag.Parse()
 	bindString = bindAddress + ":" + strconv.Itoa(int(port))
 }
