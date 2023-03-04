@@ -154,9 +154,20 @@ export default function Home() {
         <div className="flex ">
           {/* Data */}
           <div className="grid grid-cols-2 grid-rows-2 gap-4 flex-grow">
-            <DataCard title="Masa" data="10" />
-            <DataCard title="Index Hydrofobowy" data="10" />
-            <DataCard title="Polarność" data="10" />
+            <DataCard title="Mass" data={currentProtein?.mass} unit="U" />
+            <DataCard title="Isopoint" data={currentProtein?.isopoint} />
+            <DataCard title="Polarity" data={currentProtein?.polarity} />
+            {/* PH chart legend */}
+            <div className="flex flex-col gap-3 justify-end pl-7 pt-7 pr-7">
+              <div className="flex justify-start items-center gap-3">
+                <span className="block h-1 w-12 bg-green-400"></span>{" "}
+                <span>PH białka.</span>
+              </div>
+              <div className="flex justify-start items-center gap-3">
+                <span className="block h-1 w-12 bg-purple-400"></span>{" "}
+                <span>Punkt izo coś tam.</span>
+              </div>
+            </div>
           </div>
           {/* PH chart */}
           <div className="">
