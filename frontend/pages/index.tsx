@@ -103,9 +103,14 @@ export default function Home() {
             className="text-left max-w-sm text-lg font-bold flex justify-center items-center gap-2 disabled:pointer-events-none disabled:text-gray-400"
           >
             <span className="truncate">
-              {!proteinsData
-                ? "Wprowadź sekwencję DNA"
-                : currentProtein?.protein}
+              {!proteinsData ?
+                "Wprowadź sekwencję DNA" :
+                proteinsData.proteins.map((protein: IProtein, index) => {
+                  if (protein === currentProtein) {
+                    return index+1+". "+ currentProtein.protein;
+                  }
+                })
+              }
             </span>{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
