@@ -5,13 +5,13 @@ import handler from "@/pages/api/data";
 import Card from "./Card";
 import Image from "next/image";
 
-export default function SchemaCard() {
+export default function SchemaCard({protein}:any) {
   return (
     <Card>
       {/* Heading */}
       <h2 className="text-gray-500 text-lg text-center">Schemat</h2>
-      <div className="relative h-24 overflow-x-scroll">
-        zdjęcie białka czy tam cczegoś 
+      <div className="relative overflow-x-scroll">
+        {protein && <img alt="Protein schematic image" src={protein} />}
       </div>
     </Card>
   );

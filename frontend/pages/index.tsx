@@ -30,6 +30,7 @@ export default function Home() {
   // Each protein data.
   const [proteinsData, setProteinsData] = useState<null | IProteinsData>(null);
   const [currentProtein, setCurrentProtein] = useState<null | IProtein>(null);
+  const [schema, setSchema] = useState<null | string>(null);
 
   const [listIsOpen, setListIsOpen] = useState(false);
 
@@ -57,6 +58,7 @@ export default function Home() {
         // TODO handle this
         setProteinsData(data);
         setCurrentProtein(data.proteins[0]);
+        setSchema("/api/image/"+data.proteins[0].protein);
       })
       .catch((error) => {
         // TODO handle this
@@ -71,6 +73,7 @@ export default function Home() {
     setListIsOpen(false);
     // Update the protein which is going to be displayed.
     setCurrentProtein(newProtein);
+    setSchema("/api/image/"+newProtein.protein);
   }
 
   return (
@@ -190,7 +193,7 @@ export default function Home() {
         </div>
         {/* Schema */}
         <div>
-          <SchemaCard />
+          <SchemaCard protein={schema} />
         </div>
       </section>
     </main>
