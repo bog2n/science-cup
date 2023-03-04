@@ -127,7 +127,7 @@ export default function Home() {
             </svg>
           </button>
           <ul
-            className={`absolute top-full mt-3 flex flex-col justify-start gap-2 bg-gray-50 shadow-lg max-w-2xl max-h-52 overflow-y-scroll rounded-lg transform transition-all duration-300 ${
+            className={`absolute top-full mt-3 flex flex-col justify-start bg-gray-50 shadow-lg max-w-2xl max-h-96 overflow-y-scroll rounded-lg transform transition-all duration-300 ${
               !listIsOpen
                 ? "-translate-y-10 opacity-0 pointer-events-none"
                 : "translate-y-0 opacity-100 pointer-events-auto"
@@ -139,14 +139,15 @@ export default function Home() {
                 return (
                   <li key={index}>
                     <button
-                      className={`block px-5 py-2 w-full break-all text-left hover:bg-gray-300 ${
+                      className={`grid grid-cols-[auto_1fr] gap-2 px-5 py-3 w-full break-all text-left hover:bg-gray-300 ${
                         protein.protein === currentProtein?.protein
                           ? "bg-gray-200"
                           : ""
                       }`}
                       onClick={() => changeProteinHandler(protein)}
                     >
-                      {protein.protein}
+                      <span>{`${index + 1}.`}</span>
+                      <span>{protein.protein}</span>
                     </button>
                   </li>
                 );
@@ -157,7 +158,11 @@ export default function Home() {
           {/* Data */}
           <div className="grid grid-cols-2 grid-rows-2 gap-4 flex-grow">
             <DataCard title="Masa" data={currentProtein?.mass} unit="U" />
-            <DataCard title="Indeks Hydrofobowy" data={currentProtein?.hindex} unit="kcal/mol" />
+            <DataCard
+              title="Indeks Hydrofobowy"
+              data={currentProtein?.hindex}
+              unit="kcal/mol"
+            />
             <DataCard title="Polaryzacja" data={currentProtein?.polarity} />
             {/* PH chart legend */}
             <div className="flex flex-col gap-3 p-7 justify-end">
