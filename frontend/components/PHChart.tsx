@@ -36,14 +36,22 @@ export default function PHChart({ ph, index }: IProps) {
 
   return (
     // Chart
-    <div className="flex flex-col h-full justify-center gap-1 mx-10">
+    <div className="relative flex flex-col h-full justify-center gap-1 mx-10">
       {/* Heading */}
-      <h2 className="text-center">Skala PH</h2>
+      <h2 className="text-center absolute bottom-full left-0 right-0 mx-auto">
+        Skala PH
+      </h2>
 
       {/* Scale & numbers wrapper */}
       <div className="relative w-full h-full">
         {/* Fill */}
-        <div className="relative w-32 h-full bg-gradient-to-t from-red-600 via-yellow-500 to-blue-600 rounded-lg">
+        <div
+          style={{
+            backgroundImage:
+              "linear-gradient(0deg, rgba(247,4,4,1) 0%, rgba(255,248,0,1) 25%, rgba(7,195,0,1) 50%, rgba(22,73,250,1) 75%, rgba(45,4,144,1) 100%)",
+          }}
+          className="relative w-32 h-full rounded-lg"
+        >
           {/* PH line */}
           <div
             style={{ bottom: `${phPosition}%` }}

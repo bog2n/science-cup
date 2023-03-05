@@ -32,7 +32,7 @@ export default function Form({ dataHandler }: any) {
     setGenomeString("");
   }
   return (
-    <form onSubmit={submitHandler} className="flex flex-col items-center gap-7">
+    <form onSubmit={submitHandler} className="flex flex-col items-center gap-4">
       {/* Text input. */}
       <TextInput
         value={genomeString}

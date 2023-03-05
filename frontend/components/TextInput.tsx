@@ -15,10 +15,10 @@ export default function TextInput({ value, handleChange }: IProps) {
         onChange={(e: any) => handleChange(e.target.value)}
         type="text"
         placeholder="Wprowadź sekwencję DNA/RNA..."
-        className="block w-full pl-8 pr-24 py-5 rounded-full border-gray-300 border-2 "
+        className="block w-full pl-8 pr-24 py-5 rounded-full bg-gray-50"
       />
       {/* Arrow button. */}
-      <button className="flex justify-center items-center h-20 aspect-square  absolute -right-2 top-1/2 rounded-full text-white bg-[#A2D2FF] transform -translate-y-1/2 hover:scale-110 transition-transform shadow-lg shadow-[#A2D2FF]">
+      <button className="flex justify-center items-center h-20 aspect-square  absolute -right-2 top-1/2 rounded-full text-white bg-[#A2D2FF] transform -translate-y-1/2 hover:scale-110 transition-transform">
         {/* Arrow icon */}
         <RightArrow classes="w-8 h-8" />
       </button>
