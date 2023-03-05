@@ -67,5 +67,6 @@ func GetAminoAcids(rna string) ([]string, error) {
 func DNA2RNA(dna string) string {
 	dna = strings.Replace(dna, " ", "", -1)
 	dna = strings.Replace(dna, "\n", "", -1)
+	dna = strings.Replace(dna, "\t", "", -1)
 	return strings.Replace(strings.ToUpper(dna), "T", "U", -1)
 }
