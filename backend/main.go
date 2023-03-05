@@ -142,11 +142,18 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < 3; i++ {
 		d := <-res
 		out.Proteins = append(out.Proteins, d.data...)
-		if d.err != nil {
+		// Unknown codon, clear everything
+		if d.err == ribosome.UnknownCodonError {
 			out.Ok = false
+			out.Proteins = []Data{}
 			log.Print("Error while processing data ", d.err)
 			break
 		}
+	}
+
+	// No proteins where found return false
+	if len(out.Proteins) == 0 {
+		out.Ok = false
 	}
 
 	// Send data
