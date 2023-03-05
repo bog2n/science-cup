@@ -1,4 +1,4 @@
-module motorola
+module github.com/bog2n/science-cup
 
 go 1.19
 

@@ -8,16 +8,17 @@ import (
 	"io/ioutil"
 	"log"
 	"mime"
-	"motorola/aminoacids"
-	"motorola/frontend"
-	"motorola/image"
-	"motorola/ribosome"
 	"net/http"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/bog2n/science-cup/aminoacids"
+	"github.com/bog2n/science-cup/frontend"
+	"github.com/bog2n/science-cup/image"
+	"github.com/bog2n/science-cup/ribosome"
 )
 
 // Config variables
