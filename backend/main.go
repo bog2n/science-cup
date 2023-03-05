@@ -71,7 +71,7 @@ func openBrowser(url string) {
 // Used to return error
 func handleDataError(w http.ResponseWriter) {
 	w.Header().Set("Content-type", "application/json")
-	b, _ := json.Marshal(Response{Ok: false})
+	b, _ := json.Marshal(Response{Ok: false, Proteins: []Data{}})
 	w.Write(b)
 }
 
@@ -154,6 +154,7 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 	// No proteins where found return false
 	if len(out.Proteins) == 0 {
 		out.Ok = false
+		out.Proteins = []Data{}
 	}
 
 	// Send data
