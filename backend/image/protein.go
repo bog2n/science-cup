@@ -9,7 +9,7 @@ import (
 func DrawProtein(protein string, writer io.Writer) {
 	var pos []int
 	image := svg.New(writer)
-	image.Start(len(protein)*90+120, 340)
+	image.Start(len(protein)*90-220, 340)
 	pos = []int{60, 170}
 	image.Text(35, 167, "H", "stroke:black")
 	image.Text(43, 155, "+", "stroke:black")
