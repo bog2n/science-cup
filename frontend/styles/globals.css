@@ -6,7 +6,4 @@
   h1 {
     @apply text-7xl font-bold;
   }
-  img {
-    max-width: max-content;
-  }
 }

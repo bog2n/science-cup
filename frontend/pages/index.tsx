@@ -81,7 +81,7 @@ export default function Home() {
       {/* Main header. */}
       <header className="py-32">
         <h1 className="text-center max-w-3xl mx-auto">
-          Potężna aplikacja webowa.
+          DNAnalyzer
         </h1>
       </header>
       {/* Insert data to calculate. */}

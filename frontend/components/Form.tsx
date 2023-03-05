@@ -34,7 +34,7 @@ export default function Form({ dataHandler }: any) {
           value={genomeString}
           onChange={(e: any) => setGenomeString(e.target.value)}
           type="text"
-          placeholder="Wprowadź sekwencję DNA..."
+          placeholder="Wprowadź sekwencję DNA/RNA..."
           className="block w-full pl-8 pr-24 py-5 rounded-full  border-gray-300 border-2 "
         />
         {/* Arrow button. */}
