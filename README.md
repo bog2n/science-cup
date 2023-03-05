@@ -11,6 +11,8 @@
 
 ## Opcje uruchamiania
 
+Ściągamy wersje na nasz system operacyjny z <https://github.com/bog2n/science-cup/releases> i uruchamiamy
+
 ```
 Usage of ./dnanalyzer-linux-amd64:
   -b string
