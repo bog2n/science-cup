@@ -58,7 +58,7 @@ export default function Home() {
         // TODO handle this
         setProteinsData(data);
         setCurrentProtein(data.proteins[0]);
-        setSchema("/api/image/"+data.proteins[0].protein);
+        setSchema("/api/image/" + data.proteins[0].protein);
       })
       .catch((error) => {
         // TODO handle this
@@ -73,7 +73,7 @@ export default function Home() {
     setListIsOpen(false);
     // Update the protein which is going to be displayed.
     setCurrentProtein(newProtein);
-    setSchema("/api/image/"+newProtein.protein);
+    setSchema("/api/image/" + newProtein.protein);
   }
 
   return (
@@ -106,14 +106,13 @@ export default function Home() {
             className="text-left max-w-sm text-lg font-bold flex justify-center items-center gap-2 disabled:pointer-events-none disabled:text-gray-400"
           >
             <span className="truncate">
-              {!proteinsData ?
-                "Wprowadź sekwencję DNA" :
-                proteinsData.proteins.map((protein: IProtein, index) => {
-                  if (protein === currentProtein) {
-                    return index+1+". "+ currentProtein.protein;
-                  }
-                })
-              }
+              {!proteinsData
+                ? "Wprowadź sekwencję DNA"
+                : proteinsData.proteins.map((protein: IProtein, index) => {
+                    if (protein === currentProtein) {
+                      return index + 1 + ". " + currentProtein.protein;
+                    }
+                  })}
             </span>{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import RightArrow from "./Icons/RightArrow";
 import UploadIcon from "./Icons/UploadIcon";
 import { useState } from "react";
+import FileInput from "./FileInput";
 
 export default function Form({ dataHandler }: any) {
   const [genomeString, setGenomeString] = useState<string>("");
@@ -12,8 +13,8 @@ export default function Form({ dataHandler }: any) {
     dataHandler(genomeString, genomeFile);
   }
 
-  function uploadFileHandler(e: any) {
-    setGenomeFile(e.target.files[0]);
+  function uploadFileHandler(newFile: any) {
+    setGenomeFile(newFile);
   }
   function resetInputs() {
     setGenomeFile(null);
@@ -44,27 +45,7 @@ export default function Form({ dataHandler }: any) {
       </div>
       <span className="text-xl text-gray-500">lub</span>
       {/* File input. */}
-      <div className="flex items-center justify-center">
-        {/* Load file custom input. */}
-        <input
-          onChange={(e) => uploadFileHandler(e)}
-          id="dropzone-file"
-          type="file"
-          className="absolute -left-[100rem] opacity-0 peer"
-        />
-        <label
-          htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-full border-dashed border-2 border-gray-300 rounded-lg cursor-pointer  peer-focus-within:bg-gray-50  hover:bg-gray-50 px-10 py-5"
-        >
-          <div className="flex flex-col items-center justify-center text-gray-300">
-            <UploadIcon />
-            <p className=" text-sm text-gray-500">
-              <span className="font-semibold">Kliknij lub upuść</span>, żeby
-              załadować plik.
-            </p>
-          </div>
-        </label>
-      </div>
+      <FileInput uploadFileHandler={uploadFileHandler} />
     </form>
   );
 }
