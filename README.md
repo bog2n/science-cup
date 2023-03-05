@@ -30,7 +30,7 @@ Usage of ./dnanalyzer-linux-amd64:
 Testy automatyczne zostały zaimplemetowane z wykorzystaniem wbudowanego w język
 golang systemu testów, aby je wykonać należy wpisać `make test`
 
-[![asciicast](https://asciinema.org/a/kbq9AL2wSBTgChFz3kYbpJw1O.svg)](https://asciinema.org/a/kbq9AL2wSBTgChFz3kYbpJw1O)
+[![asciicast](https://asciinema.org/a/wVL5WC6tk76mFrCAJBAeVXAp5.svg)](https://asciinema.org/a/wVL5WC6tk76mFrCAJBAeVXAp5)
 
 ## Obliczanie masy białka
 
