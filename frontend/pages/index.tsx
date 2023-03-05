@@ -176,9 +176,9 @@ export default function Home() {
           {/* Data */}
           <div className="grid grid-cols-2 grid-rows-2 gap-3 flex-grow">
             <DataCard
-              title="Masa molowa"
+              title="Masa"
               data={currentProtein?.mass}
-              unit="U"
+              unit="u"
             />
             <DataCard
               title="Indeks Hydrofobowy"
