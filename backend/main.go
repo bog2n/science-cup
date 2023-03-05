@@ -20,6 +20,7 @@ import (
 	"strings"
 )
 
+// Config variables
 var (
 	bindAddress   string
 	port          uint
@@ -42,6 +43,13 @@ type Data struct {
 	Polarity    float64 `json:"polarity"`
 }
 
+// Used to move data from goroutine
+type result struct {
+	data []Data
+	err  error
+}
+
+// Handles opening browser on startup
 func openBrowser(url string) {
 	var err error
 
@@ -60,10 +68,35 @@ func openBrowser(url string) {
 	}
 }
 
+// Used to return error
 func handleDataError(w http.ResponseWriter) {
 	w.Header().Set("Content-type", "application/json")
 	b, _ := json.Marshal(Response{Ok: false})
 	w.Write(b)
+}
+
+// Data processing function
+func processData(genome string, c chan result) {
+	out := new(result)
+
+	prot, err := ribosome.GetAminoAcids(genome)
+	if err != nil {
+		out.err = err
+		c <- *out
+		return
+	}
+
+	for i := range prot {
+		out.data = append(out.data, Data{
+			Protein:     prot[i],
+			Mass:        aminoacids.CalculateMass(prot[i]),
+			HydroIndex:  aminoacids.CalculateHydroIndex(prot[i]),
+			Isoelectric: aminoacids.CalculatePI(prot[i]),
+			PH:          aminoacids.CalculatePH(prot[i]),
+			Polarity:    aminoacids.CalculatePolarity(prot[i]),
+		})
+	}
+	c <- *out
 }
 
 // Handles finding all proteins in RNA/DNA sequence
@@ -98,24 +131,25 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 		genome = string(b)
 	}
 
+	res := make(chan result)
+
+	// Start processing data for 3 offsets
 	for i := 0; i < 3; i++ {
-		prot, err := ribosome.GetAminoAcids(genome[i:])
-		if err != nil {
+		go processData(genome[i:], res)
+	}
+
+	// Receive data from goroutines
+	for i := 0; i < 3; i++ {
+		d := <-res
+		out.Proteins = append(out.Proteins, d.data...)
+		if d.err != nil {
 			out.Ok = false
-			log.Print(err)
+			log.Print("Error while processing data ", d.err)
 			break
 		}
-		for i := range prot {
-			out.Proteins = append(out.Proteins, Data{
-				Protein:     prot[i],
-				Mass:        aminoacids.CalculateMass(prot[i]),
-				HydroIndex:  aminoacids.CalculateHydroIndex(prot[i]),
-				Isoelectric: aminoacids.CalculatePI(prot[i]),
-				PH:          aminoacids.CalculatePH(prot[i]),
-				Polarity:    aminoacids.CalculatePolarity(prot[i]),
-			})
-		}
 	}
+
+	// Send data
 	b, _ := json.Marshal(out)
 	w.Header().Set("Content-type", "application/json")
 	w.Write(b)
@@ -136,7 +170,7 @@ func handleImage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// TODO replace with actual frontend
+// I guess this is actual frontend
 func handleMain(w http.ResponseWriter, r *http.Request) {
 	path := r.URL.Path
 	if path == "/" {
