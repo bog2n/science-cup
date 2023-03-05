@@ -1,4 +1,3 @@
-import { spawn } from "child_process";
 import React from "react";
 
 // Components
@@ -11,17 +10,18 @@ interface IProps {
 }
 
 export default function DataCard({ title, data, unit }: IProps) {
-  // When protein is not selected.
+  //* When protein is not selected.
   if (data === undefined) {
     return (
       <Card>
-        <h2 className="text-gray-500 text-lg">{title}</h2>
+        <h2 className="">{title}</h2>
         <span>-</span>
       </Card>
     );
   }
 
-  // When protein is selected.
+  //* When protein is selected.
+  // Round data to 2 decimal places.
   const roundedData = Math.round(data * 100) / 100;
 
   // Add + or - prefix for polarization.
@@ -30,9 +30,9 @@ export default function DataCard({ title, data, unit }: IProps) {
 
   return (
     <Card>
-      <h2 className="text-gray-500 text-lg">{title}</h2>
+      <h2 className="">{title}</h2>
 
-      <span className="text-3xl text-black font-bold">{`${prefix}${roundedData}
+      <span className="data-text">{`${prefix}${roundedData}
           ${unit ? ` ${unit}` : ""}`}</span>
     </Card>
   );

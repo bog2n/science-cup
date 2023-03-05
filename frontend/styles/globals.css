@@ -4,6 +4,12 @@
 
 @layer base {
   h1 {
-    @apply text-7xl font-bold;
+    @apply text-8xl font-bold;
+  }
+  h2 {
+    @apply text-lg font-normal text-gray-600;
+  }
+  .data-text {
+    @apply text-3xl font-bold text-gray-900;
   }
 }

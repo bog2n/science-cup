@@ -1,7 +1,9 @@
 import React from "react";
+// Types
+import { ReactNode } from "react";
 
 interface IProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function Card({ children }: IProps) {

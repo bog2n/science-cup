@@ -12,6 +12,7 @@ export default function PHChart({ ph, index }: IProps) {
   let indexPosition = 0;
   let offset = 0;
 
+  // When ph and index are present.
   if (ph) {
     roundedPh = Math.round(ph * 100) / 100;
     phPosition = (ph / 14) * 100; // in percentage
@@ -21,7 +22,7 @@ export default function PHChart({ ph, index }: IProps) {
     indexPosition = (index / 14) * 100; // in percentage
   }
 
-  // Add offset if values are too close.
+  // Add offset (position) to each value if values are too close.
   if (Math.abs(roundedPh - roundedIndex) < 1.5) {
     // Check which one is higher.
     if (roundedPh > roundedIndex) {
@@ -37,7 +38,7 @@ export default function PHChart({ ph, index }: IProps) {
     // Chart
     <div className="flex flex-col h-full justify-center gap-1 mx-10">
       {/* Heading */}
-      <h2 className="text-gray-500 text-lg text-center">Skala PH</h2>
+      <h2 className="text-center">Skala PH</h2>
 
       {/* Scale & numbers wrapper */}
       <div className="relative w-full h-full">

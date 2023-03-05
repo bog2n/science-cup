@@ -77,12 +77,10 @@ export default function Home() {
   }
 
   return (
-    <main className="max-w-7xl mx-auto px-16">
+    <main className="max-w-6xl mx-auto px-16">
       {/* Main header. */}
-      <header className="py-32">
-        <h1 className="text-center max-w-3xl mx-auto">
-          DNAnalyzer
-        </h1>
+      <header className="py-24">
+        <h1 className="text-center max-w-3xl mx-auto">DNAnalyzer</h1>
       </header>
       {/* Insert data to calculate. */}
       <section className="flex justify-center items-center mb-36">
