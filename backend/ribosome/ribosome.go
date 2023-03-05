@@ -15,8 +15,11 @@ func debug(v ...any) {
 	}
 }
 
-var unknownCodonError error = errors.New("Unknown codon")
-var noProteinError error = errors.New("No protein found")
+// Error when unknown nucleotide is found in the sequence
+var UnknownCodonError error = errors.New("Unknown codon")
+
+// Error when no proteins where found in the sequence
+var NoProteinError error = errors.New("No protein found")
 
 // Returns all amino acid strings in given RNA/DNA sequence
 func GetAminoAcids(rna string) ([]string, error) {
@@ -30,7 +33,7 @@ func GetAminoAcids(rna string) ([]string, error) {
 		a, ok := AminoAcids[rna[i:i+3]]
 		if !ok {
 			debug("Unknown codon sequence")
-			return []string{""}, unknownCodonError
+			return []string{""}, UnknownCodonError
 		}
 		// Look for start codon
 		if a == "M" {
@@ -54,7 +57,7 @@ func GetAminoAcids(rna string) ([]string, error) {
 	// No amino acids found
 	if len(out) == 0 {
 		debug("Start and stop codon not found")
-		return []string{""}, noProteinError
+		return []string{""}, NoProteinError
 	}
 	// Return what we got
 	return out, nil
