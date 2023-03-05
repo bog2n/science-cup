@@ -9,6 +9,7 @@ import DataCard from "@/components/DataCard";
 import SchemaCard from "@/components/SchemaCard";
 import PHChart from "@/components/PHChart";
 import RightArrow from "@/components/Icons/RightArrow";
+import ErrorCard from "@/components/ErrorCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function Home() {
   const [proteinsData, setProteinsData] = useState<null | IProteinsData>(null);
   const [currentProtein, setCurrentProtein] = useState<null | IProtein>(null);
   const [schema, setSchema] = useState<null | string>(null);
+  const [errorValue, setErrorValue] = useState<null | string>(null);
 
   const [listIsOpen, setListIsOpen] = useState(false);
 
@@ -55,13 +57,25 @@ export default function Home() {
     fetch("/api/data", requestParameters)
       .then((response) => response.json())
       .then((data) => {
-        // TODO handle this
-        setProteinsData(data);
-        setCurrentProtein(data.proteins[0]);
-        setSchema("/api/image/" + data.proteins[0].protein);
+        if (data.ok) {
+          setProteinsData(data);
+          setCurrentProtein(data.proteins[0]);
+          setSchema("/api/image/" + data.proteins[0].protein);
+        } else {
+          setProteinsData(null);
+          setCurrentProtein(null);
+          setSchema(null);
+          setErrorValue("Nie znaleziono białek");
+          setTimeout(() => {
+            setErrorValue(null);
+          }, 3000);
+        }
       })
       .catch((error) => {
-        // TODO handle this
+        setErrorValue("Nie udało nawiązać połączenia z serwerem");
+        setTimeout(() => {
+          setErrorValue(null);
+        }, 3000);
       });
   }
 
@@ -82,6 +96,7 @@ export default function Home() {
       <header className="py-24">
         <h1 className="text-center max-w-3xl mx-auto">DNAnalyzer</h1>
       </header>
+      <ErrorCard error={errorValue} />
       {/* Insert data to calculate. */}
       <section className="flex justify-center items-center mb-36">
         <Form dataHandler={processData} />
