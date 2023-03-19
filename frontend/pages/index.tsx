@@ -148,7 +148,7 @@ export default function Home() {
             className={`absolute top-full mt-3 flex flex-col justify-start bg-gray-50 max-w-2xl max-h-96 overflow-y-scroll rounded-lg transform transition-all duration-300 ${
               !listIsOpen
                 ? "-translate-y-10 opacity-0 pointer-events-none"
-                : "translate-y-0 opacity-100 pointer-events-auto"
+                : "translate-y-0 opacity-100 pointer-events-auto shadow-md"
             }`}
           >
             {/* List of the proteins in each protein. */}
