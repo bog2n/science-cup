@@ -29,4 +29,4 @@ GOOS=windows
 GOARCH=amd64
 export GOOS GOARCH
 make build
-mv science-cup releases/dnanalyzer-${GOOS}-${GOARCH}.exe
+mv science-cup.exe releases/dnanalyzer-${GOOS}-${GOARCH}.exe
