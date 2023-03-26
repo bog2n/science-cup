@@ -1,4 +1,8 @@
 .PHONY: build clean test
+VERSION := $(shell git describe --tags --dirty)
+
+docker:
+	docker build . -t dnanalyzer:$(VERSION)
 
 build:
 	go build -ldflags="-w -s"
